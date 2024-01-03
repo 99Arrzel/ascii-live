@@ -25,7 +25,7 @@ func DefaultGetLength(frames []string) func() int {
 // Sleep time between frames
 func DefaultGetSleep() func() time.Duration {
 	return func() time.Duration {
-		return time.Millisecond * 70
+		return time.Millisecond * 100
 	}
 }
 
@@ -58,4 +58,8 @@ var FrameMap = map[string]FrameType{
 	"torus-knot":      TorusKnot,
 	"hand":            Hand,
 	"homero":          Homero,
+	"earth":           Earth,
+	"dance":           Dance,
+	"bicho":           Bicho,
+	"liders":          Liders,
 }
