@@ -30,7 +30,7 @@ docker run -p 8080:8080 hugomd/ascii-live:latest
 
 ```bash
 docker build -t ascii-live .
-docker run -p 8080:8080 --rm --name ascii-experiment ascii-live
+docker run -p 8080:8080  --name ascii-experiment --restart always -d ascii-live
 ```
 
 ## Adding frames
