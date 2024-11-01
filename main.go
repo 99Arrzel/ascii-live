@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -52,6 +53,22 @@ func notCurledHandler(w http.ResponseWriter, r *http.Request) {
 	writeJson(w, r, NotCurledMessage, http.StatusExpectationFailed)
 }
 
+func linuxHandler(w http.ResponseWriter, r *http.Request) {
+	data, err := os.ReadFile("./linux.sh")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Write(data)
+}
+func windowsHandler(w http.ResponseWriter, r *http.Request) {
+	data, err := os.ReadFile("./windows.bat")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	w.Write(data)
+}
 func handler(w http.ResponseWriter, r *http.Request) {
 	cn := w.(http.CloseNotifier)
 	flusher := w.(http.Flusher)
@@ -110,6 +127,8 @@ func main() {
 	flag.Set("logtostderr", "true")
 
 	r := mux.NewRouter()
+	r.HandleFunc("/linux", linuxHandler).Methods("GET")
+	r.HandleFunc("/windows", windowsHandler).Methods("GET")
 	r.HandleFunc("/list", listHandler).Methods("GET")
 	r.HandleFunc("/{frameSource}", handler).Methods("GET")
 	r.NotFoundHandler = http.HandlerFunc(notFoundHandler)
