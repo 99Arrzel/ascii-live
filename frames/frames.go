@@ -65,5 +65,6 @@ var FrameMap = map[string]FrameType{
 	"messi":           Messi,
 	"jm":              JM,
 	"links":           Links,
-	"jorge":		 			 Jorge,
+	"jorge":           Jorge,
+	"tree":            Tree,
 }
